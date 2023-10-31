@@ -29,6 +29,9 @@ const Navbar = () => {
             <AnchorLink href="#about">About</AnchorLink>
           </li>
           <li>
+            <AnchorLink href="#tech">Tech</AnchorLink>
+          </li> 
+          <li>
             <AnchorLink href="#projects">Projects</AnchorLink>
           </li>
           <li>
