@@ -16,12 +16,12 @@ const Projects = () => {
           <div className="projects-grid">
             <div className="project1">
               <div className="pro_img">
-                <a target="_blank" href="https://monojmkd.github.io/taazakhabr-news/ " rel="noreferrer">
+                <a target="_blank" href="# " rel="noreferrer">
                   <img src={pro1} alt="project1" />
                 </a>
               </div>
               <div className="pro_text">
-                <h3>Taazakhbr  <a href="/"><AiFillGithub size={24}/></a></h3>
+                <h3>Taazakhbr  <a href="https://github.com/monojmkd/taazakhabr-news"><AiFillGithub size={24}/></a></h3>
                 <p>TaazaKhabr is a news website portal that provides users with the latest and most up-to-date news and information from around the world.</p>
                 <div className="tech_used" >
                   <p>React</p>
