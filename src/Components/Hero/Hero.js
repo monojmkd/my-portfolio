@@ -6,6 +6,10 @@ import { IoLocationOutline } from "react-icons/io5";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 const Hero = () => {
+
+  const handleButtonClick = () => {    
+    window.open('https://drive.google.com/file/d/1uaj2tz5WRA969CdS9AoZTs5edXXtnlCF/view?usp=sharing', '_blank'); };
+
   return (
     <section className="hero" id="hero">
       <div className="container">
@@ -33,7 +37,7 @@ const Hero = () => {
                 </a>
               </div>
               <div className="btn-resume">
-                <button type="button" className="btn btn-info btn-lg">
+                <button type="button" onClick={handleButtonClick} className="btn btn-info btn-lg">
                   Download Resume
                 </button>
               </div>
