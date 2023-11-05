@@ -35,9 +35,15 @@
     color: #2d2e32;
     font-size: 2.1rem;
     margin-bottom: 6rem;
-    text-align:center ;
-  }
- 
+      }
+
+  @media (max-width: 720px) {
+        .tech-content h3{
+          text-align: center;
+        }
+      }
+  
+
 
   .tech-stack{
     display: flex;
