@@ -8,7 +8,7 @@ import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 const Hero = () => {
 
   const handleButtonClick = () => {    
-    window.open('https://drive.google.com/file/d/1uaj2tz5WRA969CdS9AoZTs5edXXtnlCF/view?usp=sharing', '_blank'); };
+    window.open('https://drive.google.com/file/d/1bPLJjgQGMsgLR4kgvAxsDOLYwJSh5CVZ/view?usp=sharing', '_blank'); };
 
   return (
     <section className="hero" id="hero">
