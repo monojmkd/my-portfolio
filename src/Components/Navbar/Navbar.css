@@ -57,7 +57,7 @@ nav {
     top: 75px;
     background-color: #ffffff;
     width: 0px;
-    height: calc(34vh - 65px);
+    height: 252px;
     transition: all 0.3s ease-in;
     overflow: hidden;
   }
