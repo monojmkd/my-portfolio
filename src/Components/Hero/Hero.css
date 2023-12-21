@@ -87,18 +87,19 @@
   .hero-text img {
     height: 5rem;
     position: absolute;
-    left: 41rem;
+    /* left: 41rem; */
     top: 2.5rem;
     width: 5rem;
   }
-  @media (max-width: 500px) {
+  @media (max-width: 720px) {
     .hero-text img {
       height: 4.5rem;
-      left: 35rem;
+      /* left: 40rem; */
       top: 1.8rem;
-      width: 4.5rem;
+      width: 4rem;
     }
   }
+  
 
 
   .hero-text h2 {
