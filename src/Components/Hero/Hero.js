@@ -1,14 +1,17 @@
 import React from "react";
 import "./Hero.css";
 import heroImage from "../assests/hero-image.gif";
-import wave from '../assests/wave.png'
+import wave from "../assests/wave.png";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 
 const Hero = () => {
-
-  const handleButtonClick = () => {    
-    window.open('https://drive.google.com/file/d/1bPLJjgQGMsgLR4kgvAxsDOLYwJSh5CVZ/view?usp=sharing', '_blank'); };
+  const handleButtonClick = () => {
+    window.open(
+      "https://drive.google.com/file/d/1bPLJjgQGMsgLR4kgvAxsDOLYwJSh5CVZ/view?usp=sharing",
+      "_blank"
+    );
+  };
 
   return (
     <section className="hero" id="hero">
@@ -16,8 +19,10 @@ const Hero = () => {
         <div className="content">
           <div className="hero-main">
             <div className="hero-text">
-              <h1>Hi, I am Monoj <img src={wave} alt="wave"></img></h1>
-              
+              <h1>
+                Hi, I am Monoj <img src={wave} alt="wave"></img>
+              </h1>
+
               <h2>Front-End React Developer</h2>
 
               <p>
@@ -29,15 +34,19 @@ const Hero = () => {
                 <IoLocationOutline className="link-icons" />
                 <p>Assam, India</p>
                 <div>|</div>
-                <a href="www.linkedin.com/in/monoj-kumar-das-019340a9">
+                <a href="https://www.linkedin.com/in/monoj-kumar-das-019340a9/">
                   <AiFillLinkedin className="link-icons" />
-                  </a>
-                  <a href="https://github.com/monojmkd">
+                </a>
+                <a href="https://github.com/monojmkd">
                   <AiFillGithub className="link-icons" />
                 </a>
               </div>
               <div className="btn-resume">
-                <button type="button" onClick={handleButtonClick} className="btn btn-info btn-lg">
+                <button
+                  type="button"
+                  onClick={handleButtonClick}
+                  className="btn btn-info btn-lg"
+                >
                   Download Resume
                 </button>
               </div>
