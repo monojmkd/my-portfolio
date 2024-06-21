@@ -11,7 +11,9 @@ import reduxImage from "../assests/redux.png";
 import gitImage from "../assests/github.png";
 import jsImage from "../assests/javascript.png";
 import sassImage from "../assests/sass.png";
-
+import tsImage from "../assests/typescript.png";
+import nextImage from "../assests/nextjs.png";
+import tailImage from "../assests/tailwind.png";
 const Tech = () => {
   return (
     <section id="tech" className="tech">
@@ -25,7 +27,7 @@ const Tech = () => {
           <div className="tech-stack">
             <div className="icons-text">
               <img src={cImage} alt="clanguage" />
-              <h6>C Language</h6>
+              <h6>C</h6>
             </div>
             <div className="icons-text">
               <img src={cplusImage} alt="cpluslanguage" />
@@ -38,6 +40,10 @@ const Tech = () => {
             <div className="icons-text">
               <img src={jsImage} alt="javascript" />
               <h6>Javascript</h6>
+            </div>
+            <div className="icons-text">
+              <img src={tsImage} alt="typescript" />
+              <h6>TypeScript</h6>
             </div>
 
             <div className="icons-text">
@@ -53,8 +59,16 @@ const Tech = () => {
               <h6>SASS</h6>
             </div>
             <div className="icons-text">
+              <img src={tailImage} alt="tailwind" />
+              <h6>Tailwind</h6>
+            </div>
+            <div className="icons-text">
               <img src={reactImage} alt="react" />
               <h6>React JS</h6>
+            </div>
+            <div className="icons-text">
+              <img src={nextImage} alt="next" />
+              <h6>Next JS</h6>
             </div>
             <div className="icons-text">
               <img src={reduxImage} alt="redux" />
