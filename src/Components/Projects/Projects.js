@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import pro1 from "../assests/taazakhbr.png";
 import pro2 from "../assests/cryptoworld.png";
 import pro3 from "../assests/happybuys.png";
@@ -9,6 +9,15 @@ import { AiFillGithub } from "react-icons/ai";
 import "./Projects.css";
 
 const Projects = () => {
+  useEffect(() => {
+    const overlays = document.querySelectorAll(".overlay");
+    setTimeout(() => {
+      overlays.forEach((overlay) => {
+        overlay.style.opacity = "0";
+      });
+    }, 10000);
+  }, []);
+
   return (
     <section id="projects" className="project">
       <div className="container">
@@ -23,6 +32,7 @@ const Projects = () => {
                   href="https://foodsheer.vercel.app/"
                   rel="noreferrer"
                 >
+                  <div className="overlay">Hover/Click</div>
                   <img src={pro5} alt="project1" />
                 </a>
               </div>
@@ -51,7 +61,12 @@ const Projects = () => {
             </div>
             <div className="project1">
               <div className="pro_img">
-                <a target="_blank" href="# " rel="noreferrer">
+                <a
+                  target="_blank"
+                  href="https://monojmkd.github.io/taazakhabr-news/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
                   <img src={pro1} alt="project1" />
                 </a>
               </div>
@@ -83,6 +98,7 @@ const Projects = () => {
                   href="https://monojmkd.github.io/WatchCart/"
                   rel="noreferrer"
                 >
+                  <div className="overlay">Hover/Click</div>
                   <img src={pro4} alt="project3" />
                 </a>
               </div>
@@ -113,6 +129,7 @@ const Projects = () => {
                   href="https://monojmkd.github.io/cryptoworld-react/"
                   rel="noreferrer"
                 >
+                  <div className="overlay">Hover/Click</div>
                   <img src={pro2} alt="project1" />
                 </a>
               </div>
@@ -142,6 +159,7 @@ const Projects = () => {
                   href="https://monojmkd.github.io/happy-buys/"
                   rel="noreferrer"
                 >
+                  <div className="overlay">Hover/Click</div>
                   <img src={pro3} alt="project3" />
                 </a>
               </div>

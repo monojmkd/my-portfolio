@@ -80,7 +80,7 @@ const Tech = () => {
             </div>
             <div className="icons-text">
               <img src={gitImage} alt="git" />
-              <h6>Git & Github</h6>
+              <h6>Git</h6>
             </div>
 
             {/* <h5>C Language</h5> */}
