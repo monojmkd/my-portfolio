@@ -11,11 +11,23 @@ import "./Projects.css";
 const Projects = () => {
   useEffect(() => {
     const overlays = document.querySelectorAll(".overlay");
-    setTimeout(() => {
-      overlays.forEach((overlay) => {
+    overlays.forEach((overlay) => {
+      overlay.addEventListener("mouseenter", () => {
         overlay.style.opacity = "0";
       });
-    }, 10000);
+      overlay.addEventListener("click", () => {
+        overlay.style.opacity = "0";
+      });
+    });
+
+    // Optional: set the overlay to disappear after 10 seconds
+    // const timeout = setTimeout(() => {
+    //   overlays.forEach((overlay) => {
+    //     overlay.style.opacity = "0";
+    //   });
+    // }, 10000);
+
+    // return () => clearTimeout(timeout); // Clean up the timeout on component unmount
   }, []);
 
   return (
@@ -84,6 +96,7 @@ const Projects = () => {
                 </p>
                 <div className="tech_used">
                   <p>React</p>
+                  <p>Bootstrap</p>
                   <p>CSS</p>
                 </div>
               </div>
