@@ -14,6 +14,7 @@ import sassImage from "../assests/sass.png";
 import tsImage from "../assests/typescript.png";
 import nextImage from "../assests/nextjs.png";
 import tailImage from "../assests/tailwind.png";
+import expressImage from "../assests/express.png";
 const Tech = () => {
   return (
     <section id="tech" className="tech">
@@ -69,6 +70,10 @@ const Tech = () => {
             <div className="icons-text">
               <img src={nextImage} alt="next" />
               <h6>Next JS</h6>
+            </div>
+            <div className="icons-text">
+              <img src={expressImage} alt="next" />
+              <h6>Express JS</h6>
             </div>
             <div className="icons-text">
               <img src={reduxImage} alt="redux" />
