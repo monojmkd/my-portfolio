@@ -1,13 +1,10 @@
-// /api/callback.js
 export default async function handler(req, res) {
-  const code = req.query.code;
+  const code = req.query.code || null;
+
   if (!code) {
-    return res.status(400).json({ error: "Missing code from Spotify" });
+    return res.status(400).json({ error: "Missing code parameter" });
   }
 
-  const redirect_uri = `${process.env.VERCEL_URL}/api/callback`;
-
-  // Exchange code for tokens
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -23,29 +20,22 @@ export default async function handler(req, res) {
     body: new URLSearchParams({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: redirect_uri,
+      redirect_uri: `${process.env.BASE_URL}/api/callback`,
     }),
   });
 
-  const tokenData = await tokenRes.json();
+  const data = await tokenRes.json();
 
-  if (!tokenData.refresh_token || !tokenData.access_token) {
-    console.error("Spotify token exchange failed", tokenData);
-    return res.status(500).json({ error: "Failed to get tokens from Spotify" });
+  if (data.error) {
+    return res.status(400).json({ error: data.error_description });
   }
 
-  // Save to Vercel environment variables
-  await fetch(`${process.env.VERCEL_URL}/api/save-tokens`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.VERCEL_TOKEN}`,
-    },
-    body: JSON.stringify({
-      SPOTIFY_REFRESH_TOKEN: tokenData.refresh_token,
-      SPOTIFY_ACCESS_TOKEN: tokenData.access_token,
-    }),
-  });
+  // You should store refresh_token securely — in DB or KV storage
+  console.log("Refresh Token:", data.refresh_token);
 
-  res.send(" Spotify tokens saved! You can now call /api/spotify");
+  // For now, show success message
+  res.status(200).json({
+    message: "Spotify auth successful. Save refresh token on server.",
+    tokens: data,
+  });
 }
