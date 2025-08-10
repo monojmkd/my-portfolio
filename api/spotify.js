@@ -37,35 +37,26 @@ async function spotifyGet(endpoint, access_token, refresh_token) {
   let res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
     headers: { Authorization: `Bearer ${access_token}` },
   });
-
   if (res.status === 401 && refresh_token) {
     access_token = await refreshAccessToken(refresh_token);
     res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
   }
-
-  if (res.status === 204) {
-    // No content, return null safely
-    return null;
-  }
-
-  if (!res.ok) {
-    throw new Error(`Spotify API error: ${res.status}`);
-  }
-
+  if (res.status === 204) return null;
+  if (!res.ok) throw new Error(`Spotify API error ${res.status}`);
   return res.json();
 }
 
 export default async function handler(req, res) {
   const cookies = parseCookies(req);
-  let access_token = cookies.spotify_access_token || "";
-  let refresh_token = cookies.spotify_refresh_token || "";
+  let access_token = cookies.spotify_access_token;
+  let refresh_token = cookies.spotify_refresh_token;
 
   if (!access_token || !refresh_token) {
     return res
       .status(401)
-      .json({ error: "Not authenticated. Please /api/login." });
+      .json({ error: "Not authenticated. Please /api/login" });
   }
 
   try {
@@ -80,30 +71,42 @@ export default async function handler(req, res) {
         ),
       ]);
 
+    // Build clickable playback links
+    const top_tracks =
+      topTracksData?.items?.map((t) => ({
+        name: t.name,
+        id: t.id,
+        artists: t.artists.map((a) => a.name),
+        play_uri: t.uri,
+        play_link: `${
+          process.env.NEXT_PUBLIC_BASE_URL || ""
+        }/api/play?uri=${encodeURIComponent(t.uri)}`,
+      })) || [];
+
+    const now_playing = nowPlayingData?.item
+      ? {
+          track: {
+            name: nowPlayingData.item.name,
+            id: nowPlayingData.item.id,
+            artists: nowPlayingData.item.artists.map((a) => a.name),
+          },
+          is_playing: nowPlayingData.is_playing,
+        }
+      : null;
+
+    const followed_artists =
+      followedArtistsData?.artists?.items?.map((a) => ({
+        name: a.name,
+        id: a.id,
+      })) || [];
+
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(
       JSON.stringify(
         {
-          top_tracks: topTracksData.items?.map((t) => ({
-            name: t.name,
-            id: t.id,
-            artists: t.artists.map((a) => a.name),
-            play_uri: t.uri,
-          })),
-          now_playing: nowPlayingData?.item
-            ? {
-                track: {
-                  name: nowPlayingData.item.name,
-                  id: nowPlayingData.item.id,
-                  artists: nowPlayingData.item.artists.map((a) => a.name),
-                },
-                is_playing: nowPlayingData.is_playing,
-              }
-            : null,
-          followed_artists: followedArtistsData.artists?.items?.map((a) => ({
-            name: a.name,
-            id: a.id,
-          })),
+          top_tracks,
+          now_playing,
+          followed_artists,
         },
         null,
         2
