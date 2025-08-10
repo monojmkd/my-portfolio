@@ -1,4 +1,16 @@
-async function refreshAccessToken() {
+// /api/spotify.js
+
+function parseCookies(req) {
+  return Object.fromEntries(
+    (req.headers.cookie || "")
+      .split(";")
+      .map((v) => v.split("="))
+      .map(([k, ...vs]) => [k.trim(), decodeURIComponent(vs.join("="))])
+      .filter(([k]) => k)
+  );
+}
+
+async function refreshAccessToken(refresh_token) {
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -13,34 +25,51 @@ async function refreshAccessToken() {
     },
     body: new URLSearchParams({
       grant_type: "refresh_token",
-      refresh_token: process.env.SPOTIFY_REFRESH_TOKEN,
+      refresh_token,
     }),
   });
-
   const data = await res.json();
+  if (!data.access_token) throw new Error("Unable to refresh token");
   return data.access_token;
 }
 
-async function spotifyGet(endpoint, token) {
-  const res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-    headers: { Authorization: `Bearer ${token}` },
+async function spotifyGet(endpoint, access_token, refresh_token) {
+  let res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+    headers: { Authorization: `Bearer ${access_token}` },
   });
+  if (res.status === 401 && refresh_token) {
+    // try refresh
+    access_token = await refreshAccessToken(refresh_token);
+    res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+  }
+  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`);
   return res.json();
 }
 
 export default async function handler(req, res) {
-  try {
-    const token = await refreshAccessToken();
+  const cookies = parseCookies(req);
+  let access_token = cookies.spotify_access_token || "";
+  let refresh_token = cookies.spotify_refresh_token || "";
 
-    const topTracksData = await spotifyGet("me/top/tracks?limit=10", token);
-    const nowPlayingData = await spotifyGet(
-      "me/player/currently-playing",
-      token
-    );
-    const followedArtistsData = await spotifyGet(
-      "me/following?type=artist&limit=50",
-      token
-    );
+  if (!access_token || !refresh_token) {
+    return res
+      .status(401)
+      .json({ error: "Not authenticated. Please /api/login." });
+  }
+
+  try {
+    const [topTracksData, nowPlayingData, followedArtistsData] =
+      await Promise.all([
+        spotifyGet("me/top/tracks?limit=10", access_token, refresh_token),
+        spotifyGet("me/player/currently-playing", access_token, refresh_token),
+        spotifyGet(
+          "me/following?type=artist&limit=50",
+          access_token,
+          refresh_token
+        ),
+      ]);
 
     res.setHeader("Content-Type", "application/json");
     res.status(200).send(
