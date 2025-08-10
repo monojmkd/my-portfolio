@@ -1,11 +1,9 @@
+import querystring from "querystring";
+
 export default async function handler(req, res) {
   const code = req.query.code || null;
 
-  if (!code) {
-    return res.status(400).json({ error: "Missing code parameter" });
-  }
-
-  const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
+  const tokenResponse = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
       Authorization:
@@ -17,25 +15,22 @@ export default async function handler(req, res) {
         ).toString("base64"),
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: new URLSearchParams({
+    body: querystring.stringify({
       grant_type: "authorization_code",
-      code: code,
-      redirect_uri: `${process.env.BASE_URL}/api/callback`,
+      code,
+      redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // must match
     }),
   });
 
-  const data = await tokenRes.json();
+  const data = await tokenResponse.json();
 
   if (data.error) {
     return res.status(400).json({ error: data.error_description });
   }
 
-  // You should store refresh_token securely — in DB or KV storage
-  console.log("Refresh Token:", data.refresh_token);
-
-  // For now, show success message
+  // For now, just send tokens as JSON (later, store securely)
   res.status(200).json({
-    message: "Spotify auth successful. Save refresh token on server.",
-    tokens: data,
+    access_token: data.access_token,
+    refresh_token: data.refresh_token,
   });
 }

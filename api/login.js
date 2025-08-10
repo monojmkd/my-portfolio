@@ -1,21 +1,20 @@
+import querystring from "querystring";
+
 export default function handler(req, res) {
-  const scope = [
-    "user-read-currently-playing",
+  const scopes = [
     "user-top-read",
     "user-follow-read",
+    "user-read-currently-playing",
     "user-modify-playback-state",
+    "user-read-playback-state",
   ].join(" ");
 
-  const redirectUri = `${process.env.BASE_URL}/api/callback`; // must match in Spotify dashboard
+  const queryParams = querystring.stringify({
+    response_type: "code",
+    client_id: process.env.SPOTIFY_CLIENT_ID,
+    scope: scopes,
+    redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // must match Spotify dashboard exactly
+  });
 
-  const authUrl =
-    "https://accounts.spotify.com/authorize?" +
-    new URLSearchParams({
-      response_type: "code",
-      client_id: process.env.SPOTIFY_CLIENT_ID,
-      scope: scope,
-      redirect_uri: redirectUri,
-    });
-
-  res.redirect(authUrl);
+  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 }
