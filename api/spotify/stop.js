@@ -9,6 +9,7 @@ function parseCookies(req) {
       .filter(([k]) => k)
   );
 }
+
 async function refreshAccessToken(refresh_token) {
   const res = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -33,31 +34,40 @@ async function refreshAccessToken(refresh_token) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== "POST")
+  if (req.method !== "POST" && req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
-  const cookies = parseCookies(req);
-  let access_token = cookies.spotify_access_token || "";
-  let refresh_token = cookies.spotify_refresh_token || "";
-  if (!access_token || !refresh_token) {
-    return res.status(401).json({ error: "Not authenticated." });
   }
+
+  const cookies = parseCookies(req);
+  let access_token = cookies.spotify_access_token;
+  let refresh_token = cookies.spotify_refresh_token;
+
+  if (!access_token || !refresh_token) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
   try {
-    let response = await fetch("https://api.spotify.com/v1/me/player/pause", {
+    let pauseRes = await fetch("https://api.spotify.com/v1/me/player/pause", {
       method: "PUT",
       headers: { Authorization: `Bearer ${access_token}` },
     });
-    if (response.status === 401) {
+
+    if (pauseRes.status === 401) {
       access_token = await refreshAccessToken(refresh_token);
-      response = await fetch("https://api.spotify.com/v1/me/player/pause", {
+      pauseRes = await fetch("https://api.spotify.com/v1/me/player/pause", {
         method: "PUT",
         headers: { Authorization: `Bearer ${access_token}` },
       });
     }
-    if (response.status === 204) {
+
+    if (pauseRes.status === 204) {
       res.status(200).json({ message: "Playback stopped" });
+    } else if (pauseRes.status === 202) {
+      res.status(202).json({ message: "No active device found" });
     } else {
-      const errData = await response.json();
-      res.status(response.status).json(errData);
+      const errData =
+        pauseRes.headers.get("content-length") > 0 ? await pauseRes.json() : {};
+      res.status(pauseRes.status).json(errData);
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
