@@ -1,5 +1,3 @@
-import querystring from "querystring";
-
 export default async function handler(req, res) {
   const code = req.query.code || null;
 
@@ -15,22 +13,24 @@ export default async function handler(req, res) {
         ).toString("base64"),
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: querystring.stringify({
+    body: new URLSearchParams({
       grant_type: "authorization_code",
-      code,
-      redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // must match
+      code: code,
+      redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // must match Spotify dashboard
     }),
   });
 
   const data = await tokenResponse.json();
 
   if (data.error) {
-    return res.status(400).json({ error: data.error_description });
+    return res.status(400).json({ error: data.error, details: data });
   }
 
-  // For now, just send tokens as JSON (later, store securely)
-  res.status(200).json({
-    access_token: data.access_token,
-    refresh_token: data.refresh_token,
-  });
+  // Store tokens in cookies (or a database if you want persistence)
+  res.setHeader("Set-Cookie", [
+    `spotify_access_token=${data.access_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
+    `spotify_refresh_token=${data.refresh_token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
+  ]);
+
+  res.redirect("/"); // redirect to home after login
 }

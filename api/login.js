@@ -1,5 +1,3 @@
-import querystring from "querystring";
-
 export default function handler(req, res) {
   const scopes = [
     "user-top-read",
@@ -9,12 +7,16 @@ export default function handler(req, res) {
     "user-read-playback-state",
   ].join(" ");
 
-  const queryParams = querystring.stringify({
-    response_type: "code",
-    client_id: process.env.SPOTIFY_CLIENT_ID,
-    scope: scopes,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // must match Spotify dashboard exactly
-  });
+  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 
-  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
+  const authUrl =
+    `https://accounts.spotify.com/authorize?` +
+    new URLSearchParams({
+      response_type: "code",
+      client_id: process.env.SPOTIFY_CLIENT_ID,
+      scope: scopes,
+      redirect_uri: redirect_uri,
+    }).toString();
+
+  res.redirect(authUrl);
 }
