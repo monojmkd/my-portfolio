@@ -37,14 +37,23 @@ async function spotifyGet(endpoint, access_token, refresh_token) {
   let res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
     headers: { Authorization: `Bearer ${access_token}` },
   });
+
   if (res.status === 401 && refresh_token) {
-    // try refresh
     access_token = await refreshAccessToken(refresh_token);
     res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
       headers: { Authorization: `Bearer ${access_token}` },
     });
   }
-  if (!res.ok) throw new Error(`Spotify API error: ${res.status}`);
+
+  if (res.status === 204) {
+    // No content, return null safely
+    return null;
+  }
+
+  if (!res.ok) {
+    throw new Error(`Spotify API error: ${res.status}`);
+  }
+
   return res.json();
 }
 
