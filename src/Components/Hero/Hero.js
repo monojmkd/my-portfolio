@@ -23,12 +23,14 @@ const Hero = () => {
                 Hi, I am Monoj <img src={wave} alt="wave"></img>
               </h1>
 
-              <h2>Front-End React Developer</h2>
+              <h2>Full-Stack Developer</h2>
 
               <p>
-                "Passionate React frontend developer with strong frontend
-                expertise, dedicated to crafting seamless web experiences, and
-                driven by a love for coding."
+                “Full-Stack Developer with a backend focus, experienced in
+                Node.js, Express, PostgreSQL, MongoDB, React & Next.js,
+                specializing in API design, authentication, testing, and cloud
+                deployment, and passionate about building scalable, reliable,
+                and user-centric web applications.”
               </p>
               <div className="link-text">
                 <IoLocationOutline className="link-icons" />
