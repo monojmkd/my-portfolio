@@ -13,16 +13,18 @@ const About = () => {
           <div className="side-text">
             <h3>About me</h3>
             <h4>
-              A dedicated Front-end Developer <br></br> based in Assam, India
+              A dedicated Full-Stack Developer <br></br> based in Assam, India
               📍
             </h4>
             <p>
-              A React frontend developer based in Jorhat, Assam. Armed with a
-              BTech in Computer Science, I'm passionate about crafting seamless
-              user experiences. With expertise in React, I focus on building
-              responsive websites and applications. I thrive on challenges,
-              ensuring every project I undertake is executed with precision.
-              Let's collaborate and bring your digital ideas to life!
+              A Full-Stack Developer based in Jorhat, Assam, with a BTech in
+              Computer Science. Passionate about building scalable and reliable
+              applications, I specialize in backend development with Node.js,
+              Express, PostgreSQL, and MongoDB, while also crafting responsive
+              frontends with React, Next.js, and Vite. With hands-on experience
+              in API design, authentication, testing, and cloud deployment, I
+              thrive on solving complex challenges and delivering user-centric
+              solutions. Let’s collaborate and bring your digital ideas to life!
             </p>
           </div>
         </div>

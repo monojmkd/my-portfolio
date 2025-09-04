@@ -27,7 +27,7 @@ import sqliteImage from "../assests/sqlite.png";
 import mongodbImage from "../assests/mongodb.png";
 import postmanImage from "../assests/postman.png";
 import dockerImage from "../assests/docker.png";
-// import cloudinaryImage from "../assests/cloudinary.png";
+import cloudinaryImage from "../assests/cloudinary.png";
 // import rabbitmqImage from "../assests/rabbitmq.png";
 // import awsImage from "../assests/aws.png";
 import jwtImage from "../assests/jwt.png";
@@ -85,7 +85,7 @@ const techCategories = {
   ],
   "File Handling": [
     // { name: "Multer", image: multerImage },
-    // { name: "Cloudinary", image: cloudinaryImage },
+    { name: "Cloudinary", image: cloudinaryImage },
     // { name: "Sharp", image: sharpImage },
   ],
   Testing: [
