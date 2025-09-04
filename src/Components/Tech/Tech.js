@@ -41,6 +41,7 @@ import jestImage from "../assests/jest.png";
 // import shadcnImage from "../assests/shadcn.png";
 // import motionImage from "../assests/motion.png";
 // import rechartsImage from "../assests/recharts.png";
+import appsScriptImage from "../assests/appscript.png";
 
 // Define categories
 const techCategories = {
@@ -98,7 +99,10 @@ const techCategories = {
     { name: "Docker", image: dockerImage },
     // { name: "AWS", image: awsImage },
   ],
-  Tools: [{ name: "Git & GitHub", image: gitImage }],
+  Tools: [
+    { name: "Git & GitHub", image: gitImage },
+    { name: "Google Apps Script", image: appsScriptImage },
+  ],
   "APIs & Integrations": [
     // { name: "Spotify API", image: jsImage },
     // { name: "TMDB API", image: jsImage },
