@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Tech.css";
 
+// Import images
 import cImage from "../assests/c.png";
 import cplusImage from "../assests/c++.png";
 import javaImage from "../assests/java.png";
@@ -108,8 +109,6 @@ const techCategories = {
 };
 
 const Tech = () => {
-  const [activeCategory, setActiveCategory] = useState("Languages");
-
   return (
     <section id="tech" className="tech">
       <div className="container">
@@ -120,36 +119,24 @@ const Tech = () => {
             your fingertips.
           </h3>
 
-          {/* Category Tabs */}
-          <div className="tech-tabs">
-            {Object.keys(techCategories).map((category) => (
-              <button
-                key={category}
-                className={`tab-btn ${
-                  activeCategory === category ? "active" : ""
+          {/* Loop through categories */}
+          {Object.entries(techCategories).map(([category, techs]) => (
+            <div key={category} className="tech-category">
+              <h4>{category}</h4>
+              <div
+                className={`tech-stack ${
+                  techs.length <= 2 ? "small-stack" : ""
                 }`}
-                onClick={() => setActiveCategory(category)}
               >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Display only active category */}
-          <div key={activeCategory} className={`tech-stack-wrapper fade-in`}>
-            <div
-              className={`tech-stack ${
-                techCategories[activeCategory].length <= 2 ? "small-stack" : ""
-              }`}
-            >
-              {techCategories[activeCategory].map((tech) => (
-                <div className="icons-text" key={tech.name}>
-                  <img src={tech.image} alt={tech.name} />
-                  <h6>{tech.name}</h6>
-                </div>
-              ))}
+                {techs.map((tech) => (
+                  <div className="icons-text" key={tech.name}>
+                    <img src={tech.image} alt={tech.name} />
+                    <h6>{tech.name}</h6>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
