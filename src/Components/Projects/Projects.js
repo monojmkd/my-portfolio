@@ -75,7 +75,7 @@ const Projects = () => {
               <div className="pro_img">
                 <a
                   target="_blank"
-                  href="https://monojmkd.github.io/taazakhabr-news/"
+                  href="https://taazakhabr-news.vercel.app/"
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
@@ -97,7 +97,7 @@ const Projects = () => {
                 <div className="tech_used">
                   <p>React</p>
                   <p>Bootstrap</p>
-                  <p>CSS</p>
+                  <p>NodeJs</p>
                 </div>
               </div>
               {/* <div  className="code_rotate">
