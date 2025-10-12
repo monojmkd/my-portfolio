@@ -4,7 +4,7 @@ import heroImage from "../assests/hero-image.gif";
 import wave from "../assests/wave.png";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
-
+import SpotifyPopup from "../Spotify/SpotifyPopup";
 const Hero = () => {
   const handleButtonClick = () => {
     window.open(
@@ -42,6 +42,7 @@ const Hero = () => {
                 <a href="https://github.com/monojmkd">
                   <AiFillGithub className="link-icons" />
                 </a>
+                  <SpotifyPopup /> 
               </div>
               <div className="btn-resume">
                 <button
@@ -52,6 +53,7 @@ const Hero = () => {
                   Download Resume
                 </button>
               </div>
+              
             </div>
             <div className="hero-img">
               <img className="hero-image" src={heroImage} alt="mee" />

@@ -1,0 +1,58 @@
+.spotify-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.spotify-popup {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 280px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #121212;
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+  z-index: 100;
+}
+
+.spotify-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.spotify-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.spotify-buttons button {
+  background: #1DB954;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.now-playing {
+  margin-top: 10px;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+.now-playing button {
+  background: #f44336;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
