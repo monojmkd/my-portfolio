@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       `);
     }
 
-    // Success: show refresh token directly in browser
+    
     res.status(200).send(`
       <h1>✅ Spotify Refresh Token</h1>
       <p>Copy this token and save it in your .env / Vercel environment as <code>SPOTIFY_REFRESH_TOKEN</code></p>
