@@ -1,40 +1,46 @@
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
-
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
-
-async function getAccessToken() {
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token,
-    }),
-  });
-  const data = await response.json();
-  return data.access_token;
-}
+import { pausePlayback } from '../lib/spotify';
 
 export default async function handler(req, res) {
-  try {
-    const access_token = await getAccessToken();
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
-    await fetch("https://api.spotify.com/v1/me/player/pause", {
-      method: "PUT",
-      headers: { Authorization: `Bearer ${access_token}` },
+  try {
+    const response = await pausePlayback();
+
+    if (response.status === 204) {
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Playback stopped' 
+      });
+    }
+
+    if (response.status === 404) {
+      return res.status(404).json({ 
+        error: 'No active device',
+        message: 'No active playback found'
+      });
+    }
+
+    if (response.status === 403) {
+      return res.status(403).json({ 
+        error: 'Premium required',
+        message: 'Playback control requires Spotify Premium'
+      });
+    }
+
+    const errorData = await response.json();
+    return res.status(response.status).json({ 
+      error: 'Spotify API error',
+      details: errorData
     });
 
-    res.status(200).json({ message: "Playback paused" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to pause playback", details: err.message });
+  } catch (error) {
+    console.error('Spotify Stop Error:', error);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
   }
 }

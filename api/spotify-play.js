@@ -1,44 +1,65 @@
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const client_id = process.env.SPOTIFY_CLIENT_ID;
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 
-const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
-const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
-
-async function getAccessToken() {
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basic}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token,
-    }),
-  });
-  const data = await response.json();
-  return data.access_token;
-}
+import { startPlayback } from '../lib/spotify';
 
 export default async function handler(req, res) {
-  const { uri } = req.query;
-  if (!uri) return res.status(400).json({ error: "Track URI is required" });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
   try {
-    const access_token = await getAccessToken();
+    const { trackUri } = req.body;
 
-    await fetch("https://api.spotify.com/v1/me/player/play", {
-      method: "PUT",
-      headers: { Authorization: `Bearer ${access_token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ uris: [uri] }),
+    if (!trackUri) {
+      return res.status(400).json({ 
+        error: 'Missing trackUri',
+        message: 'Please provide a trackUri in the request body'
+      });
+    }
+
+    // Validate trackUri format
+    if (!trackUri.startsWith('spotify:track:')) {
+      return res.status(400).json({ 
+        error: 'Invalid trackUri format',
+        message: 'trackUri must be in format: spotify:track:xxxxx'
+      });
+    }
+
+    const response = await startPlayback(trackUri);
+
+    if (response.status === 204) {
+      return res.status(200).json({ 
+        success: true, 
+        message: 'Playback started',
+        trackUri 
+      });
+    }
+
+    if (response.status === 404) {
+      return res.status(404).json({ 
+        error: 'No active device',
+        message: 'Please open Spotify on a device first'
+      });
+    }
+
+    if (response.status === 403) {
+      return res.status(403).json({ 
+        error: 'Premium required',
+        message: 'Playback control requires Spotify Premium'
+      });
+    }
+
+    const errorData = await response.json();
+    return res.status(response.status).json({ 
+      error: 'Spotify API error',
+      details: errorData
     });
 
-    res.status(200).json({ message: "Playing selected track" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to start playback", details: err.message });
+  } catch (error) {
+    console.error('Spotify Play Error:', error);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
   }
 }
