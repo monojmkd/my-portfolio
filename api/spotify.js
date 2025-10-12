@@ -1,3 +1,4 @@
+// api/spotify.js
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -23,67 +24,64 @@ async function getAccessToken() {
   return data.access_token;
 }
 
-// Default sample tracks if user has no listening history
-const SAMPLE_TRACKS = [
-  {
-    name: "Sample Track 1",
-    artist: "Sample Artist",
-    album: "Sample Album",
-    uri: "spotify:track:3n3Ppam7vgaVa1iaRUc9Lp",
-    playUrl: "/api/spotify-play?uri=spotify:track:3n3Ppam7vgaVa1iaRUc9Lp",
-    external_url: "https://open.spotify.com/track/3n3Ppam7vgaVa1iaRUc9Lp"
-  },
-  {
-    name: "Sample Track 2",
-    artist: "Sample Artist",
-    album: "Sample Album",
-    uri: "spotify:track:7ouMYWpwJ422jRcDASZB7P",
-    playUrl: "/api/spotify-play?uri=spotify:track:7ouMYWpwJ422jRcDASZB7P",
-    external_url: "https://open.spotify.com/track/7ouMYWpwJ422jRcDASZB7P"
-  }
-  // Add more sample tracks if needed
-];
-
 export default async function handler(req, res) {
   try {
     const access_token = await getAccessToken();
 
-    // Top tracks
-    const topRes = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
+    // Fetch top tracks and now playing
+    const [topRes, nowRes] = await Promise.all([
+      fetch("https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=short_term", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      }),
+      fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      })
+    ]);
+
+    // Parse top tracks
     const topData = await topRes.json();
-    console.log(topData); 
-    let topTracks = topData.items?.map(track => ({
+    const topTracks = topData.items?.map((track, index) => ({
+      rank: index + 1,
       name: track.name,
       artist: track.artists.map(a => a.name).join(", "),
       album: track.album.name,
+      albumArt: track.album.images[0]?.url,
       uri: track.uri,
-      playUrl: `/api/spotify-play?uri=${track.uri}`,
-      external_url: track.external_urls.spotify,
-    })) || SAMPLE_TRACKS;
+      playUrl: `/api/spotify-play?uri=${encodeURIComponent(track.uri)}`,
+      spotifyUrl: track.external_urls.spotify,
+      duration_ms: track.duration_ms,
+      popularity: track.popularity,
+    })) || [];
 
-    // Now playing
-    const nowRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
-      headers: { Authorization: `Bearer ${access_token}` },
-    });
-
-    let nowPlaying = { isPlaying: false };
+    // Parse now playing
+    let nowPlaying = null;
     if (nowRes.status === 200) {
       const nowData = await nowRes.json();
-      nowPlaying = {
-        name: nowData.item.name,
-        artist: nowData.item.artists.map(a => a.name).join(", "),
-        album: nowData.item.album.name,
-        isPlaying: nowData.is_playing,
-        pauseUrl: "/api/spotify-stop",
-        external_url: nowData.item.external_urls.spotify,
-      };
+      if (nowData && nowData.item) {
+        nowPlaying = {
+          name: nowData.item.name,
+          artist: nowData.item.artists.map(a => a.name).join(", "),
+          album: nowData.item.album.name,
+          albumArt: nowData.item.album.images[0]?.url,
+          isPlaying: nowData.is_playing,
+          progress_ms: nowData.progress_ms,
+          duration_ms: nowData.item.duration_ms,
+          spotifyUrl: nowData.item.external_urls.spotify,
+          stopUrl: "/api/spotify-stop",
+        };
+      }
     }
 
-    res.status(200).json({ topTracks, nowPlaying });
+    res.status(200).json({ 
+      topTracks, 
+      nowPlaying,
+      timestamp: new Date().toISOString()
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to fetch Spotify data", details: err.message });
+    console.error("Spotify API Error:", err);
+    res.status(500).json({ 
+      error: "Failed to fetch Spotify data", 
+      details: err.message 
+    });
   }
 }

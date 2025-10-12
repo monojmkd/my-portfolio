@@ -1,3 +1,4 @@
+// api/spotify-play.js
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const client_id = process.env.SPOTIFY_CLIENT_ID;
@@ -24,21 +25,71 @@ async function getAccessToken() {
 }
 
 export default async function handler(req, res) {
-  const { uri } = req.query;
-  if (!uri) return res.status(400).json({ error: "Track URI is required" });
+  // Accept uri from both query params and POST body
+  const uri = req.query.uri || req.body?.uri;
+  
+  if (!uri) {
+    return res.status(400).json({ 
+      error: "Track URI is required",
+      usage: "GET /api/spotify-play?uri=spotify:track:xxxxx OR POST with {\"uri\": \"spotify:track:xxxxx\"}"
+    });
+  }
+
+  // Validate URI format
+  if (!uri.startsWith("spotify:track:")) {
+    return res.status(400).json({ 
+      error: "Invalid track URI format",
+      expected: "spotify:track:xxxxx"
+    });
+  }
 
   try {
     const access_token = await getAccessToken();
 
-    await fetch("https://api.spotify.com/v1/me/player/play", {
+    const response = await fetch("https://api.spotify.com/v1/me/player/play", {
       method: "PUT",
-      headers: { Authorization: `Bearer ${access_token}`, "Content-Type": "application/json" },
+      headers: { 
+        Authorization: `Bearer ${access_token}`, 
+        "Content-Type": "application/json" 
+      },
       body: JSON.stringify({ uris: [uri] }),
     });
 
-    res.status(200).json({ message: "Playing selected track" });
+    if (response.status === 204) {
+      return res.status(200).json({ 
+        success: true,
+        message: "Playing selected track",
+        trackUri: uri
+      });
+    }
+
+    if (response.status === 404) {
+      return res.status(404).json({ 
+        error: "No active device found",
+        message: "Please open Spotify on a device first"
+      });
+    }
+
+    if (response.status === 403) {
+      return res.status(403).json({ 
+        error: "Premium required",
+        message: "Playback control requires Spotify Premium"
+      });
+    }
+
+    // Handle other error responses
+    const errorData = await response.text();
+    return res.status(response.status).json({ 
+      error: "Spotify API error",
+      status: response.status,
+      details: errorData
+    });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to start playback", details: err.message });
+    console.error("Playback Error:", err);
+    res.status(500).json({ 
+      error: "Failed to start playback", 
+      details: err.message 
+    });
   }
 }
