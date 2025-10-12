@@ -12,12 +12,11 @@ export default async function handler(req, res) {
 
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // Must match Spotify Dashboard exactly
-
+  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI; 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 
   try {
-    // Exchange code for access & refresh tokens
+    
     const response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -43,7 +42,7 @@ export default async function handler(req, res) {
 
     
     res.status(200).send(`
-      <h1>✅ Spotify Refresh Token</h1>
+      <h1> Spotify Refresh Token</h1>
       <p>Copy this token and save it in your .env / Vercel environment as <code>SPOTIFY_REFRESH_TOKEN</code></p>
       <pre style="word-wrap: break-word; white-space: pre-wrap;">${data.refresh_token}</pre>
     `);

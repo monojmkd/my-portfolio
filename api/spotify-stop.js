@@ -29,7 +29,7 @@ async function getAccessToken() {
 }
 
 export default async function handler(req, res) {
-  // Set CORS headers
+  
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Check if environment variables are set
+    
     if (!client_id || !client_secret || !refresh_token) {
       return res.status(500).json({ 
         error: 'Spotify credentials not configured'
