@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   try {
     const access_token = await getAccessToken();
 
-
+    const host = "https://monojkumardas.in"; 
     const topRes = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
       artist: track.artists.map(a => a.name).join(", "),
       album: track.album.name,
       uri: track.uri,
-      playUrl: `/api/spotify-play?uri=${track.uri}`,
+      playUrl: `${host}/api/spotify-play?uri=${track.uri}`,
       external_url: track.external_urls.spotify,
     }))
 
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
         artist: nowData.item.artists.map(a => a.name).join(", "),
         album: nowData.item.album.name,
         isPlaying: nowData.is_playing,
-        pauseUrl: "/api/spotify-stop",
+        pauseUrl: `${host}/api/spotify-stop`,
         external_url: nowData.item.external_urls.spotify,
       };
     }
