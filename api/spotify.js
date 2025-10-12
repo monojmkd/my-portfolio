@@ -27,8 +27,9 @@ async function getAccessToken() {
 export default async function handler(req, res) {
   try {
     const access_token = await getAccessToken();
+    const host = "https://monojkumardas.in";
 
-    const host = "https://monojkumardas.in"; 
+ 
     const topRes = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
@@ -41,9 +42,9 @@ export default async function handler(req, res) {
       uri: track.uri,
       playUrl: `${host}/api/spotify-play?uri=${track.uri}`,
       external_url: track.external_urls.spotify,
-    }))
+    })) ;
 
-
+   
     const nowRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
@@ -60,6 +61,7 @@ export default async function handler(req, res) {
         external_url: nowData.item.external_urls.spotify,
       };
     }
+
     res.status(200).json({ topTracks, nowPlaying });
   } catch (err) {
     console.error(err);
