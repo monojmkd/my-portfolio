@@ -23,27 +23,51 @@ async function getAccessToken() {
   return data.access_token;
 }
 
+// Default sample tracks if user has no listening history
+const SAMPLE_TRACKS = [
+  {
+    name: "Sample Track 1",
+    artist: "Sample Artist",
+    album: "Sample Album",
+    uri: "spotify:track:3n3Ppam7vgaVa1iaRUc9Lp",
+    playUrl: "/api/spotify-play?uri=spotify:track:3n3Ppam7vgaVa1iaRUc9Lp",
+    external_url: "https://open.spotify.com/track/3n3Ppam7vgaVa1iaRUc9Lp"
+  },
+  {
+    name: "Sample Track 2",
+    artist: "Sample Artist",
+    album: "Sample Album",
+    uri: "spotify:track:7ouMYWpwJ422jRcDASZB7P",
+    playUrl: "/api/spotify-play?uri=spotify:track:7ouMYWpwJ422jRcDASZB7P",
+    external_url: "https://open.spotify.com/track/7ouMYWpwJ422jRcDASZB7P"
+  }
+  // Add more sample tracks if needed
+];
+
 export default async function handler(req, res) {
   try {
     const access_token = await getAccessToken();
 
-    // Top 10 tracks
+    // Top tracks
     const topRes = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
     const topData = await topRes.json();
-    const topTracks = topData.items?.map(track => ({
+    console.log(topData); 
+    let topTracks = topData.items?.map(track => ({
       name: track.name,
       artist: track.artists.map(a => a.name).join(", "),
       album: track.album.name,
       uri: track.uri,
+      playUrl: `/api/spotify-play?uri=${track.uri}`,
       external_url: track.external_urls.spotify,
-    })) || [];
+    })) || SAMPLE_TRACKS;
 
     // Now playing
     const nowRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
+
     let nowPlaying = { isPlaying: false };
     if (nowRes.status === 200) {
       const nowData = await nowRes.json();
@@ -52,6 +76,7 @@ export default async function handler(req, res) {
         artist: nowData.item.artists.map(a => a.name).join(", "),
         album: nowData.item.album.name,
         isPlaying: nowData.is_playing,
+        pauseUrl: "/api/spotify-stop",
         external_url: nowData.item.external_urls.spotify,
       };
     }
