@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // must match the one used in Spotify Dashboard
+  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
 
@@ -27,12 +27,16 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // data.refresh_token is what you need
-    console.log("Refresh token:", data.refresh_token);
+    if (!data.refresh_token) {
+      return res.status(500).send("No refresh token returned. Check scopes and redirect URI.");
+    }
 
-    res.status(200).send(
-      `✅ Success! Check console for refresh_token. Save this in your .env as SPOTIFY_REFRESH_TOKEN`
-    );
+    // ✅ Return refresh token in browser
+    res.status(200).send(`
+      <h1>Spotify Refresh Token</h1>
+      <p>Copy this token and save it in your .env as SPOTIFY_REFRESH_TOKEN</p>
+      <pre>${data.refresh_token}</pre>
+    `);
   } catch (err) {
     console.error(err);
     res.status(500).send("Error exchanging code for token");
