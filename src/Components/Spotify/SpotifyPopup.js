@@ -66,14 +66,7 @@ export default function SpotifyPopup() {
                       >
                         ▶
                       </button>
-                      <a
-                        href={track.external_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="spotify-link"
-                      >
-                        🔗
-                      </a>
+    
                     </div>
                   </li>
                 ))}
