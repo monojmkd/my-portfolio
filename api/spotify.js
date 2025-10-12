@@ -1,26 +1,17 @@
-// /api/spotify.js
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-function parseCookies(req) {
-  return Object.fromEntries(
-    (req.headers.cookie || "")
-      .split(";")
-      .map((v) => v.split("="))
-      .map(([k, ...vs]) => [k.trim(), decodeURIComponent(vs.join("="))])
-      .filter(([k]) => k)
-  );
-}
+const client_id = process.env.SPOTIFY_CLIENT_ID;
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 
-async function refreshAccessToken(refresh_token) {
-  const res = await fetch("https://accounts.spotify.com/api/token", {
+const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
+
+async function getAccessToken() {
+  const response = await fetch(TOKEN_ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(
-          process.env.SPOTIFY_CLIENT_ID +
-            ":" +
-            process.env.SPOTIFY_CLIENT_SECRET
-        ).toString("base64"),
+      Authorization: `Basic ${basic}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams({
@@ -28,91 +19,46 @@ async function refreshAccessToken(refresh_token) {
       refresh_token,
     }),
   });
-  const data = await res.json();
-  if (!data.access_token) throw new Error("Unable to refresh token");
+  const data = await response.json();
   return data.access_token;
 }
 
-async function spotifyGet(endpoint, access_token, refresh_token) {
-  let res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
-  if (res.status === 401 && refresh_token) {
-    access_token = await refreshAccessToken(refresh_token);
-    res = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+export default async function handler(req, res) {
+  try {
+    const access_token = await getAccessToken();
+
+    // Top 10 tracks
+    const topRes = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
       headers: { Authorization: `Bearer ${access_token}` },
     });
-  }
-  if (res.status === 204) return null;
-  if (!res.ok) throw new Error(`Spotify API error ${res.status}`);
-  return res.json();
-}
+    const topData = await topRes.json();
+    const topTracks = topData.items?.map(track => ({
+      name: track.name,
+      artist: track.artists.map(a => a.name).join(", "),
+      album: track.album.name,
+      uri: track.uri,
+      external_url: track.external_urls.spotify,
+    })) || [];
 
-export default async function handler(req, res) {
-  const cookies = parseCookies(req);
-  let access_token = cookies.spotify_access_token;
-  let refresh_token = cookies.spotify_refresh_token;
+    // Now playing
+    const nowRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+    let nowPlaying = { isPlaying: false };
+    if (nowRes.status === 200) {
+      const nowData = await nowRes.json();
+      nowPlaying = {
+        name: nowData.item.name,
+        artist: nowData.item.artists.map(a => a.name).join(", "),
+        album: nowData.item.album.name,
+        isPlaying: nowData.is_playing,
+        external_url: nowData.item.external_urls.spotify,
+      };
+    }
 
-  if (!access_token || !refresh_token) {
-    return res
-      .status(401)
-      .json({ error: "Not authenticated. Please /api/login" });
-  }
-
-  try {
-    const [topTracksData, nowPlayingData, followedArtistsData] =
-      await Promise.all([
-        spotifyGet("me/top/tracks?limit=10", access_token, refresh_token),
-        spotifyGet("me/player/currently-playing", access_token, refresh_token),
-        spotifyGet(
-          "me/following?type=artist&limit=50",
-          access_token,
-          refresh_token
-        ),
-      ]);
-
-    // Build clickable playback links
-    const top_tracks =
-      topTracksData?.items?.map((t) => ({
-        name: t.name,
-        id: t.id,
-        artists: t.artists.map((a) => a.name),
-        play_uri: t.uri,
-        play_link: `${
-          process.env.NEXT_PUBLIC_BASE_URL || ""
-        }/api/play?uri=${encodeURIComponent(t.uri)}`,
-      })) || [];
-
-    const now_playing = nowPlayingData?.item
-      ? {
-          track: {
-            name: nowPlayingData.item.name,
-            id: nowPlayingData.item.id,
-            artists: nowPlayingData.item.artists.map((a) => a.name),
-          },
-          is_playing: nowPlayingData.is_playing,
-        }
-      : null;
-
-    const followed_artists =
-      followedArtistsData?.artists?.items?.map((a) => ({
-        name: a.name,
-        id: a.id,
-      })) || [];
-
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).send(
-      JSON.stringify(
-        {
-          top_tracks,
-          now_playing,
-          followed_artists,
-        },
-        null,
-        2
-      )
-    );
+    res.status(200).json({ topTracks, nowPlaying });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch Spotify data", details: err.message });
   }
 }
