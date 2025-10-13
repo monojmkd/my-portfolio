@@ -69,7 +69,8 @@ export default function SpotifyPopup() {
           {spotifyData && (
             <>
               <h4 className="spotify-header">
-                <FaHeadphones style={{ color: "#1DB954" }} /> My Top 10 Tracks
+                <FaHeadphones size={20} style={{ color: "#1DB954" }} /> My Top
+                10 Tracks
               </h4>
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
@@ -77,7 +78,7 @@ export default function SpotifyPopup() {
 
                   return (
                     <li key={track.uri} className="spotify-track">
-                                       <div className="track-info">
+                      <div className="track-info">
                         <span className="track-name">{track.name}</span>
                         <span className="track-artist">{track.artist}</span>
                       </div>
