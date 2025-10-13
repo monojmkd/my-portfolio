@@ -69,7 +69,7 @@ export default function SpotifyPopup() {
 
           {spotifyData && (
             <>
-              <h4 className="spotify-header">🎧 My Top 10 Tracks</h4>
+              <h4 className="spotify-header">My Top 10 Tracks</h4>
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
                   const isCurrentTrack = playingTrack === track.name;
