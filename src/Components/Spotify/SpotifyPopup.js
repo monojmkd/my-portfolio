@@ -10,7 +10,7 @@ export default function SpotifyPopup() {
 
   const togglePopup = () => setShow((prev) => !prev);
 
-  // Fetch Spotify data when popup opens
+  // Fetch Spotify data only when popup opens
   useEffect(() => {
     if (show && !spotifyData) {
       setLoading(true);
@@ -48,23 +48,30 @@ export default function SpotifyPopup() {
         onClick={togglePopup}
         style={{ cursor: "pointer", color: "#1DB954" }}
       />
+
       {show && (
         <div className="spotify-popup">
           {loading && <p>Loading Spotify...</p>}
 
           {spotifyData && (
             <>
-              <h4>🎵 Top Tracks</h4>
+              <h4 className="spotify-header">🎧 My Top 10 Tracks</h4>
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
                   const isCurrentTrack = playingTrack === track.name;
 
                   return (
-                    <li key={track.uri}>
-                      <span className="track-name">
-                        {track.name} — {track.artist}
-                      </span>
-                      <div className="spotify-buttons">
+                    <li key={track.uri} className="spotify-track">
+                      <img
+                        src={track.albumCover || "https://via.placeholder.com/50"}
+                        alt="album art"
+                        className="album-art"
+                      />
+                      <div className="track-info">
+                        <span className="track-name">{track.name}</span>
+                        <span className="track-artist">{track.artist}</span>
+                      </div>
+                      <div className="track-controls">
                         {!isCurrentTrack ? (
                           <button
                             onClick={() => playTrack(track.playUrl, track.name)}
@@ -74,9 +81,7 @@ export default function SpotifyPopup() {
                           </button>
                         ) : (
                           <button
-                            onClick={() =>
-                              stopTrack(spotifyData.nowPlaying?.pauseUrl)
-                            }
+                            onClick={() => stopTrack(spotifyData.nowPlaying?.pauseUrl)}
                             className="spotify-btn pause"
                           >
                             ⏸
@@ -87,31 +92,6 @@ export default function SpotifyPopup() {
                   );
                 })}
               </ul>
-
-              {spotifyData.nowPlaying.isPlaying && (
-                <div className="now-playing">
-                  <h5>🎧 Now Playing</h5>
-                  <span className="track-name">
-                    {spotifyData.nowPlaying.name} —{" "}
-                    {spotifyData.nowPlaying.artist}
-                  </span>
-                  <div className="spotify-buttons">
-                    <button
-                      onClick={() => stopTrack(spotifyData.nowPlaying.pauseUrl)}
-                    >
-                      ⏸ Pause
-                    </button>
-                    <a
-                      href={spotifyData.nowPlaying.external_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="spotify-link"
-                    >
-                      🔗
-                    </a>
-                  </div>
-                </div>
-              )}
             </>
           )}
         </div>
