@@ -1,6 +1,6 @@
 .spotify-popup {
   position: absolute;
-  top: 40px;
+  top: 88%;
   right: 0;
   width: 320px;
   background: #121212;
@@ -26,10 +26,18 @@
 
 
 .spotify-header {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: #1DB954;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.spotify-header::before {
+  content: "🎧";
+  font-size: 20px;
 }
 
 .spotify-list {
