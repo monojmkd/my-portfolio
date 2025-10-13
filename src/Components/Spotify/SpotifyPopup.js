@@ -12,7 +12,6 @@ export default function SpotifyPopup() {
 
   const togglePopup = () => setShow((prev) => !prev);
 
-  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -25,7 +24,6 @@ export default function SpotifyPopup() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [show]);
 
-  
   useEffect(() => {
     if (show && !spotifyData) {
       setLoading(true);
@@ -70,9 +68,7 @@ export default function SpotifyPopup() {
 
           {spotifyData && (
             <>
-              <h4 className="spotify-header">
-  <FaHeadphones style={{ color: "#1DB954" }} /> My Top 10 Tracks
-</h4>
+           
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
                   const isCurrentTrack = playingTrack === track.name;
@@ -80,7 +76,9 @@ export default function SpotifyPopup() {
                   return (
                     <li key={track.uri} className="spotify-track">
                       <img
-                        src={track.albumCover || "https://via.placeholder.com/50"}
+                        src={
+                          track.albumCover || "https://via.placeholder.com/50"
+                        }
                         alt="album art"
                         className="album-art"
                       />
@@ -98,7 +96,9 @@ export default function SpotifyPopup() {
                           </button>
                         ) : (
                           <button
-                            onClick={() => stopTrack(spotifyData.nowPlaying?.pauseUrl)}
+                            onClick={() =>
+                              stopTrack(spotifyData.nowPlaying?.pauseUrl)
+                            }
                             className="spotify-btn pause"
                           >
                             ⏸
