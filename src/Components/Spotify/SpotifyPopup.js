@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaSpotify } from "react-icons/fa";
 import "./SpotifyPopup.css";
+import { FaHeadphones } from "react-icons/fa";
 
 export default function SpotifyPopup() {
   const [show, setShow] = useState(false);
@@ -11,7 +12,7 @@ export default function SpotifyPopup() {
 
   const togglePopup = () => setShow((prev) => !prev);
 
-  // ✅ Close popup if clicked outside
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -24,7 +25,7 @@ export default function SpotifyPopup() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [show]);
 
-  // ✅ Fetch Spotify data only when popup opens
+  
   useEffect(() => {
     if (show && !spotifyData) {
       setLoading(true);
@@ -69,7 +70,9 @@ export default function SpotifyPopup() {
 
           {spotifyData && (
             <>
-              <h4 className="spotify-header">My Top 10 Tracks</h4>
+              <h4 className="spotify-header">
+  <FaHeadphones style={{ color: "#1DB954" }} /> My Top 10 Tracks
+</h4>
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
                   const isCurrentTrack = playingTrack === track.name;

@@ -36,10 +36,6 @@
   margin-bottom: 12px;
 }
 
-.spotify-header::before {
-  content: "🎧";
-  font-size: 20px;
-}
 
 .spotify-list {
   list-style: none;
