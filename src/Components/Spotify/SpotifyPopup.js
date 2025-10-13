@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaSpotify } from "react-icons/fa";
 import "./SpotifyPopup.css";
 
@@ -7,10 +7,24 @@ export default function SpotifyPopup() {
   const [spotifyData, setSpotifyData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [playingTrack, setPlayingTrack] = useState(null);
+  const popupRef = useRef(null);
 
   const togglePopup = () => setShow((prev) => !prev);
 
-  // Fetch Spotify data only when popup opens
+  // ✅ Close popup if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setShow(false);
+      }
+    };
+    if (show) document.addEventListener("mousedown", handleClickOutside);
+    else document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [show]);
+
+  // ✅ Fetch Spotify data only when popup opens
   useEffect(() => {
     if (show && !spotifyData) {
       setLoading(true);
@@ -41,7 +55,7 @@ export default function SpotifyPopup() {
   };
 
   return (
-    <div className="spotify-wrapper">
+    <div className="spotify-wrapper" ref={popupRef}>
       <FaSpotify
         className="spotify-icon"
         size={25}
