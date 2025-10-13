@@ -77,14 +77,7 @@ export default function SpotifyPopup() {
 
                   return (
                     <li key={track.uri} className="spotify-track">
-                      <img
-                        src={
-                          track.albumCover || "https://via.placeholder.com/50"
-                        }
-                        alt="album art"
-                        className="album-art"
-                      />
-                      <div className="track-info">
+                                       <div className="track-info">
                         <span className="track-name">{track.name}</span>
                         <span className="track-artist">{track.artist}</span>
                       </div>

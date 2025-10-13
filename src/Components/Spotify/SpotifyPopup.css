@@ -68,13 +68,13 @@
   background: #242424;
 }
 
-.album-art {
+/* .album-art {
   width: 45px;
   height: 45px;
   border-radius: 6px;
   object-fit: cover;
   margin-right: 10px;
-}
+} */
 
 .track-info {
   flex: 1;
