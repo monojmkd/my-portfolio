@@ -1,20 +1,29 @@
+.spotify-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .spotify-popup {
   position: absolute;
-  top: 420px;
+  top: 35px;
   right: 0;
   width: 320px;
-  background-color: #121212;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  color: #fff;
-  z-index: 999;
-  font-family: "Inter", sans-serif;
-  max-height: 400px;
+  max-height: 450px;
   overflow-y: auto;
-  opacity: 0;
-  transform: translateY(-10px);
+  background: #121212;
+  color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  font-size: 14px; /* larger font */
   animation: slideDown 0.2s ease-out forwards;
+}
+
+.spotify-popup h4,
+.spotify-popup h5 {
+  margin: 5px 0 10px 0;
+  font-size: 16px;
 }
 
 @keyframes slideDown {
@@ -24,7 +33,7 @@
   }
 }
 
-.spotify-header {
+/* .spotify-header {
   border: none;
   text-decoration: none;
   outline: none;
@@ -36,7 +45,7 @@
   font-size: 18px !important;
   line-height: 1.2;
   margin-bottom: 12px;
-}
+} */
 
 .spotify-list {
   list-style: none;
