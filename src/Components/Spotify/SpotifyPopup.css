@@ -4,19 +4,20 @@
 }
 
 .spotify-popup {
+  font-size: 16px;
+  line-height: 1.5;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 1rem;
+  border-radius: 12px;
   position: absolute;
   top: 35px;
   right: 0;
   width: 320px;
-  max-height: 450px;
-  overflow-y: auto;
   background: #121212;
   color: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   z-index: 100;
-  font-size: 14px; /* larger font */
 }
 
 .spotify-popup h4,
@@ -41,17 +42,20 @@
 .track-name {
   font-size: 14px;
   line-height: 1.4;
+    font-weight: 500;
+  color: #fff;
 }
 
 .spotify-buttons button {
-  background: #1DB954;
+  background: #1db954;
   border: none;
   color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
-  margin-right: 5px;
+  padding: 6px 10px;
+  border-radius: 50%;
+  margin-left: 8px;
   cursor: pointer;
   font-size: 14px;
+  transition: transform 0.2s ease;
 }
 
 .spotify-buttons button.playing {
@@ -67,7 +71,15 @@
 }
 
 .spotify-link {
-  color: #1DB954;
+  color: #1db954;
   text-decoration: none;
   margin-left: 5px;
+}
+
+.spotify-buttons button:hover {
+  transform: scale(1.1);
+}
+
+.spotify-btn.pause {
+  background-color: #ff5555;
 }
