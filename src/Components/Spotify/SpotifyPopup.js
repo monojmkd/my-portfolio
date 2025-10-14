@@ -11,9 +11,6 @@ export default function SpotifyPopup() {
   const popupRef = useRef(null);
 
   const togglePopup = () => setShow((prev) => !prev);
-  // search
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -56,19 +53,6 @@ export default function SpotifyPopup() {
     }
   };
 
-  // ✅ Handle Spotify Search
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return;
-
-    setLoading(true);
-    fetch(`/api/spotify-search?q=${encodeURIComponent(searchQuery)}`)
-      .then((res) => res.json())
-      .then((data) => setSearchResults(data.tracks || []))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  };
-
   return (
     <div className="spotify-wrapper" ref={popupRef}>
       <FaSpotify
@@ -88,24 +72,6 @@ export default function SpotifyPopup() {
                 <FaHeadphones size={20} style={{ color: "#1DB954" }} /> What I’m
                 Listening To Right Now
               </h4>
-
-              {/* Search Bar */}
-              <form onSubmit={handleSearch} className="spotify-search">
-                <input
-                  type="text"
-                  placeholder="Search for a song..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button type="submit">🔍</button>
-              </form>
-
-              {searchResults.length > 0 && (
-                <p className="search-hint">
-                  Showing results for “{searchQuery}”
-                </p>
-              )}
-
               <ul className="spotify-list">
                 {spotifyData.topTracks.map((track) => {
                   const isCurrentTrack = playingTrack === track.name;
