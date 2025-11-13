@@ -76,7 +76,7 @@ const Contact = () => {
                 /> */}
                 <button
                   className="btn btn-primary btn-lg"
-                  style={{ width: "12rem" }}
+                  style={{ marginTop: "1.5rem", width: "12rem" }}
                   type="submit"
                   // disabled={state.submitting}
                 >

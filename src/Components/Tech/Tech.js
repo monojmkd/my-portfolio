@@ -43,6 +43,11 @@ import jestImage from "../assests/jest.png";
 // import rechartsImage from "../assests/recharts.png";
 import appsScriptImage from "../assests/appscript.png";
 import figma from "../assests/figma.png";
+import coingecko_api from "../assests/coingecko.png";
+import inshorts_api from "../assests/inshorts.png";
+import spotifydev_api from "../assests/spotify-dev.png";
+import swiggy_api from "../assests/swiggy.png";
+import ergastapi from "../assests/race.png";
 
 // Define categories
 const techCategories = {
@@ -106,10 +111,11 @@ const techCategories = {
     { name: "Google Apps Script", image: appsScriptImage },
   ],
   "APIs & Integrations": [
-    // { name: "Spotify API", image: jsImage },
-    // { name: "TMDB API", image: jsImage },
-    // { name: "Unsplash API", image: jsImage },
-    // { name: "Payment APIs", image: jsImage },
+    { name: "Swiggy API", image: swiggy_api },
+    { name: "Inshorts API", image: inshorts_api },
+    { name: "Spotify Developers", image: spotifydev_api },
+    { name: "Coingecko API", image: coingecko_api },
+    { name: "Ergast F1 API", image: ergastapi },
   ],
 };
 
@@ -149,7 +155,7 @@ const Tech = () => {
               }`}
             >
               {techCategories[activeCategory].map((tech) => (
-                <div className="icons-text" key={tech.name}>
+                <div className="icons" key={tech.name}>
                   <img src={tech.image} alt={tech.name} />
                   <h6>{tech.name}</h6>
                 </div>

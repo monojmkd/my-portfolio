@@ -75,14 +75,18 @@
   gap: 2rem;
 }
 
-.icons-text {
+.icons {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  border-radius: 20px;
 }
-
-.icons-text img {
+.icons :hover {
+  transform: translateY(-2px);
+  box-shadow: var(--elev-shadow);
+}
+.icons img {
   width: 65px;
   height: 65px;
   object-fit: contain;
@@ -110,7 +114,7 @@
     flex-wrap: wrap;
   }
 
-  .icons-text img {
+  .icons img {
     width: 50px;
     height: 50px;
   }

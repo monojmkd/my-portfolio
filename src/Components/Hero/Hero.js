@@ -20,7 +20,8 @@ const Hero = () => {
           <div className="hero-main">
             <div className="hero-text">
               <h1>
-                Hi, I am Monoj <img src={wave} alt="wave"></img>
+                Hi, I am Monoj{" "}
+                <img className="wave" src={wave} alt="wave"></img>
               </h1>
 
               <h2>Full-Stack Developer</h2>
@@ -35,14 +36,22 @@ const Hero = () => {
               <div className="link-text">
                 <IoLocationOutline className="link-icons" />
                 <p>Assam, India</p>
-                <div>|</div>
-                <a href="https://www.linkedin.com/in/monoj-kumar-das-019340a9/">
+                <p className="divider">|</p>
+                <a
+                  href="https://www.linkedin.com/in/monoj-kumar-das-019340a9/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <AiFillLinkedin className="link-icons" />
                 </a>
-                <a href="https://github.com/monojmkd">
+                <a
+                  href="https://github.com/monojmkd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <AiFillGithub className="link-icons" />
                 </a>
-                  <SpotifyPopup /> 
+                <SpotifyPopup />
               </div>
               <div className="btn-resume">
                 <button
@@ -53,10 +62,13 @@ const Hero = () => {
                   Download Resume
                 </button>
               </div>
-              
             </div>
             <div className="hero-img">
-              <img className="hero-image" src={heroImage} alt="mee" />
+              <img
+                className="hero-image"
+                src={heroImage}
+                alt="Developer portrait"
+              />
             </div>
           </div>
         </div>

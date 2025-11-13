@@ -38,7 +38,7 @@ const Projects = () => {
           <h3>Each project is a unique piece of development</h3>
           <h4> · Hover to preview · Click the image to view the live demo</h4>
           <div className="projects-grid">
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -46,7 +46,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro5} alt="project1" />
+                  <img src={pro5} alt="FoodSheer" />
                 </a>
               </div>
               <div className="pro_text">
@@ -69,7 +69,7 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -77,7 +77,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro6} alt="project1" />
+                  <img src={pro6} alt="F1 HUb" />
                 </a>
               </div>
               <div className="pro_text">
@@ -99,8 +99,7 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-            {/* TaazaKhabr */}
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -108,7 +107,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro1} alt="project1" />
+                  <img src={pro1} alt="Taazakhbr" />
                 </a>
               </div>
               <div className="pro_text">
@@ -129,11 +128,8 @@ const Projects = () => {
                   <p>NodeJs</p>
                 </div>
               </div>
-              {/* <div  className="code_rotate">
-                    
-              </div> */}
             </div>
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -141,7 +137,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro4} alt="project3" />
+                  <img src={pro4} alt="watchcart" />
                 </a>
               </div>
               <div className="pro_text">
@@ -164,7 +160,7 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -172,7 +168,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro2} alt="project1" />
+                  <img src={pro2} alt="cryptoworld" />
                 </a>
               </div>
               <div className="pro_text">
@@ -194,7 +190,7 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-            <div className="project1">
+            <div className="project-card">
               <div className="pro_img">
                 <a
                   target="_blank"
@@ -202,7 +198,7 @@ const Projects = () => {
                   rel="noreferrer"
                 >
                   <div className="overlay">Hover/Click</div>
-                  <img src={pro3} alt="project3" />
+                  <img src={pro3} alt="happybuys" />
                 </a>
               </div>
               <div className="pro_text">

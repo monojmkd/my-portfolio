@@ -1,12 +1,10 @@
-
-.footer_content{
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-    padding: 2rem 0;
+.footer_content {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
   width: 100%;
-  background-color: #d8d8d8;
+  background-color: #ffebd0;
   border-radius: 1.7rem;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
