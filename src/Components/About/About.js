@@ -13,8 +13,7 @@ const About = () => {
           <div className="side-text">
             <h3>About me</h3>
             <h4>
-              A dedicated Full-Stack Developer <br></br> based in Assam, India
-              📍
+              A dedicated <br>Full-Stack Developer</br>based in Assam, India 📍
             </h4>
             <p>
               A Full-Stack Developer based in Jorhat, Assam, with a BTech in
