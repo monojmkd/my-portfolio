@@ -4,7 +4,7 @@ import pro2 from "../assests/cryptoworld.png";
 import pro3 from "../assests/happybuys.png";
 import pro4 from "../assests/watchcart.png";
 import pro5 from "../assests/foodsheer.png";
-
+import pro6 from "../assests/f1hub.png";
 import { AiFillGithub } from "react-icons/ai";
 import "./Projects.css";
 
@@ -36,6 +36,7 @@ const Projects = () => {
         <div className="project-content">
           <p>Projects</p>
           <h3>Each project is a unique piece of development</h3>
+          <h4> · Hover to preview · Click the image to view the live demo</h4>
           <div className="projects-grid">
             <div className="project1">
               <div className="pro_img">
@@ -67,10 +68,38 @@ const Projects = () => {
                   <p>Tailwind CSS</p>
                 </div>
               </div>
-              {/* <div  className="code_rotate">
-                    
-              </div> */}
             </div>
+            <div className="project1">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://f1-hub-mkd.vercel.app/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro6} alt="project1" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  Formula One Hub{" "}
+                  <a href="https://github.com/monojmkd/F1-Hub">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  Formula One Hub is a dynamic web app that delivers live
+                  Formula 1 race streams, driver rankings, upcoming race
+                  schedules, and highlight videos, all fetched dynamically.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Tailwind</p>
+                  <p>HLS.js</p>
+                </div>
+              </div>
+            </div>
+            {/* TaazaKhabr */}
             <div className="project1">
               <div className="pro_img">
                 <a

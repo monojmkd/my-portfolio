@@ -42,6 +42,7 @@ import jestImage from "../assests/jest.png";
 // import motionImage from "../assests/motion.png";
 // import rechartsImage from "../assests/recharts.png";
 import appsScriptImage from "../assests/appscript.png";
+import figma from "../assests/figma.png";
 
 // Define categories
 const techCategories = {
@@ -100,6 +101,7 @@ const techCategories = {
     // { name: "AWS", image: awsImage },
   ],
   Tools: [
+    { name: "Figma", image: figma },
     { name: "Git & GitHub", image: gitImage },
     { name: "Google Apps Script", image: appsScriptImage },
   ],

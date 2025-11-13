@@ -1,47 +1,48 @@
 .contact {
-    background-color: #fff;
-    padding: 2rem 0;
-    margin-left: 10rem;
+  background-color: #fff;
+  padding: 2rem 0;
+  margin-left: 10rem;
+}
+@media (max-width: 800px) {
+  .contact {
+    margin-left: 0rem;
+    padding: 0rem 0;
   }
-  @media (max-width: 800px) {
-    .contact {
-      margin-left: 0rem;
-      padding: 0rem 0;
-    }
-  }
-  .container {
-    margin: 0 auto;
-    max-width: 107rem;
-    padding: 0 1.3rem;
-  }
-  .contact_content {
-    display: flex;
-    flex-direction: column;
-  }
+}
+.container {
+  margin: 0 auto;
+  max-width: 107rem;
+  padding: 0 1.3rem;
+}
+.contact_content {
+  display: flex;
+  flex-direction: column;
+}
 
-  .contact_details {
-    display: flex;
-    flex-wrap: wrap;
-    }
+.contact_details {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  .contact_form form {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-gap: 1.5rem;
-  }
-  
-  label{
-    font-size: 2rem;
-  }
+.contact_form form {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
-  .contact_title p {
-    color: #147efb;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
+label {
+  font-size: 2rem;
+}
+
+.contact_title p {
+  color: #147efb;
+  letter-spacing: 2px;
+  font-size: 2.7rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
 .contact_icons {
   margin-left: 25rem;
   display: flex;
@@ -55,14 +56,16 @@ gap: 1.5rem;
   }
 }
 
-.contact_icons a  {
+.contact_icons a {
   text-decoration: none;
   color: rgb(3, 44, 63);
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.contact_icons .callcontact,.linkedin,.whatsapp h4{
+.contact_icons .callcontact,
+.linkedin,
+.whatsapp h4 {
   margin-top: 1rem;
 }
 
