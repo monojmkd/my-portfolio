@@ -132,17 +132,6 @@
   }
 }
 
-.hero-text h2 {
-  color: #2d2e32;
-  font-size: 3rem;
-  font-weight: 600;
-  line-height: 1;
-}
-@media (max-width: 500px) {
-  .hero-text h2 {
-    font-size: 2.5rem;
-  }
-}
 .hero-text p {
   color: #555;
   font-family: Mulish, sans-serif;
@@ -210,4 +199,46 @@
 
 .btn {
   font-size: 1.8rem;
+  background: linear-gradient(90deg, #06b6d4, #1280ac);
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+}
+
+.typewriter-title {
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hero-text h2 {
+  color: #2d2e32;
+  font-size: 6rem;
+  font-weight: 600;
+  line-height: 1;
+}
+@media (max-width: 900px) {
+  .hero-text h2 {
+    font-size: 5rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+.Typewriter__cursor {
+  color: #147efb !important;
+  font-weight: bold;
 }

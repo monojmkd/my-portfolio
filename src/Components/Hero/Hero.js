@@ -5,6 +5,8 @@ import wave from "../assests/wave.png";
 import { IoLocationOutline } from "react-icons/io5";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import SpotifyPopup from "../Spotify/SpotifyPopup";
+import Typewriter from "typewriter-effect";
+
 const Hero = () => {
   const handleButtonClick = () => {
     window.open(
@@ -24,14 +26,37 @@ const Hero = () => {
                 <img className="wave" src={wave} alt="wave"></img>
               </h1>
 
-              <h2>Full-Stack Developer</h2>
+              <h2 className="typewriter-title">
+                <Typewriter
+                  className="typewriter-text"
+                  options={{
+                    strings: [
+                      "Full-Stack Developer",
+                      "Frontend Developer",
+                      "Backend Developer",
+                      "Creator of Modern Web Apps",
+                      "Digital Problem Solver",
+                      "API Specialist",
+                      "Software Developer",
+                      "MERN Stack Developer",
+                      "API Specialist",
+                      "Node.js & React Developer",
+                    ],
+                    autoStart: true,
+                    loop: true,
+                    delay: 60,
+                    deleteSpeed: 35,
+                    pauseFor: 1500,
+                  }}
+                />
+              </h2>
 
               <p>
-                “Full-Stack Developer with a backend focus, experienced in
-                Node.js, Express, PostgreSQL, MongoDB, React & Next.js,
-                specializing in API design, authentication, testing, and cloud
-                deployment, and passionate about building scalable, reliable,
-                and user-centric web applications.”
+                “I build scalable web applications with a strong focus on
+                backend engineering. Skilled in Node.js, Express, PostgreSQL,
+                MongoDB, React, and Next.js. I specialize in clean APIs,
+                authentication, cloud deployment, and high-performance
+                architecture.”
               </p>
               <div className="link-text">
                 <IoLocationOutline className="link-icons" />
@@ -57,7 +82,7 @@ const Hero = () => {
                 <button
                   type="button"
                   onClick={handleButtonClick}
-                  className="btn btn-info btn-lg"
+                  className="btn"
                 >
                   Download Resume
                 </button>
