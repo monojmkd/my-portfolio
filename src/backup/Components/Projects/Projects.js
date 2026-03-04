@@ -1,0 +1,229 @@
+import React, { useEffect } from "react";
+import pro1 from "../assests/taazakhbr.png";
+import pro2 from "../assests/cryptoworld.png";
+import pro3 from "../assests/happybuys.png";
+import pro4 from "../assests/watchcart.png";
+import pro5 from "../assests/foodsheer.png";
+import pro6 from "../assests/f1hub.png";
+import { AiFillGithub } from "react-icons/ai";
+import "./Projects.css";
+
+const Projects = () => {
+  useEffect(() => {
+    const overlays = document.querySelectorAll(".overlay");
+    overlays.forEach((overlay) => {
+      overlay.addEventListener("mouseenter", () => {
+        overlay.style.opacity = "0";
+      });
+      overlay.addEventListener("click", () => {
+        overlay.style.opacity = "0";
+      });
+    });
+
+    // Optional: set the overlay to disappear after 10 seconds
+    // const timeout = setTimeout(() => {
+    //   overlays.forEach((overlay) => {
+    //     overlay.style.opacity = "0";
+    //   });
+    // }, 10000);
+
+    // return () => clearTimeout(timeout); // Clean up the timeout on component unmount
+  }, []);
+
+  return (
+    <section id="projects" className="project">
+      <div className="container">
+        <div className="project-content">
+          <p>Projects</p>
+          <h3>Each project is a unique piece of development</h3>
+          <h4> · Hover to preview · Click the image to view the live demo</h4>
+          <div className="projects-grid">
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://foodsheer.vercel.app/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro5} alt="FoodSheer" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  FoodSheer{" "}
+                  <a href="https://github.com/monojmkd/FoodSheer">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  Food Sheer is a food delivery frontend web application built
+                  using ReactJS and Tailwind CSS in a Vite environment. It
+                  leverages the Swiggy API to fetch restaurant data, providing a
+                  seamless experience for users.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Redux-Toolkit</p>
+                  <p>Tailwind CSS</p>
+                </div>
+              </div>
+            </div>
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://f1-hub-mkd.vercel.app/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro6} alt="F1 HUb" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  Formula One Hub{" "}
+                  <a href="https://github.com/monojmkd/F1-Hub">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  Formula One Hub is a dynamic web app that delivers live
+                  Formula 1 race streams, driver rankings, upcoming race
+                  schedules, and highlight videos, all fetched dynamically.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Tailwind</p>
+                  <p>HLS.js</p>
+                </div>
+              </div>
+            </div>
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://taazakhabr-news.vercel.app/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro1} alt="Taazakhbr" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  Taazakhbr{" "}
+                  <a href="https://github.com/monojmkd/taazakhabr-news">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  TaazaKhabr is a news website portal that provides users with
+                  the latest and most up-to-date news and information from
+                  around the world.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Bootstrap</p>
+                  <p>NodeJs</p>
+                </div>
+              </div>
+            </div>
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://monojmkd.github.io/WatchCart/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro4} alt="watchcart" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  Watchcart{" "}
+                  <a href="https://github.com/monojmkd/WatchCart">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  WatchCart, A project for selling watches and electronics with
+                  filtering options. This allows users to browse products with
+                  ease while also offering a convenient filtering mechanism to
+                  refine their product selections.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Redux</p>
+                  <p>CSS</p>
+                </div>
+              </div>
+            </div>
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://monojmkd.github.io/cryptoworld-react/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro2} alt="cryptoworld" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  CryptoWorld{" "}
+                  <a href="https://github.com/monojmkd/cryptoworld-react">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  CryptoWorld is a web application built using React that allows
+                  users to easily track the prices of various cryptocurrencies
+                  in real-time.{" "}
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Redux</p>
+                  <p>SCSS</p>
+                </div>
+              </div>
+            </div>
+            <div className="project-card">
+              <div className="pro_img">
+                <a
+                  target="_blank"
+                  href="https://monojmkd.github.io/happy-buys/"
+                  rel="noreferrer"
+                >
+                  <div className="overlay">Hover/Click</div>
+                  <img src={pro3} alt="happybuys" />
+                </a>
+              </div>
+              <div className="pro_text">
+                <h3>
+                  HappyBuys{" "}
+                  <a href="https://github.com/monojmkd/happy-buys/tree/master">
+                    <AiFillGithub size={24} />
+                  </a>
+                </h3>
+                <p>
+                  HappyBuys is a simple e-commerce marketplace.The website
+                  allows users to browse products by categories and add/remove
+                  items from the cart using Redux state management.
+                </p>
+                <div className="tech_used">
+                  <p>React</p>
+                  <p>Redux</p>
+                  <p>CSS</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+export default Projects;
