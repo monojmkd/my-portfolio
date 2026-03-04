@@ -6,25 +6,32 @@ const About = () => {
   return (
     <section className="about" id="about">
       <div className="container">
-        <div className="about-content">
-          <div className="side-img">
-            <img src={dpImage} alt="mee" className="main-img" />
+        <div className="about-grid">
+          {/* Image */}
+          <div className="ab-img rv">
+            <div className="ab-img-wrap">
+              <img src={dpImage} alt="Monoj Kumar Das" className="ab-photo" />
+              <div className="ab-dots" />
+            </div>
           </div>
-          <div className="side-text">
-            <h3>About me</h3>
-            <h4>
-              A dedicated Full-Stack Developer <br></br> based in Assam, India
-              📍
-            </h4>
-            <p>
+
+          {/* Text */}
+          <div className="ab-text">
+            <span className="ab-label rv">About Me</span>
+
+            <h2 className="rv d1">
+              A dedicated Full-Stack Developer based in Assam, India 📍
+            </h2>
+
+            <p className="rv d2">
               A Full-Stack Developer based in Jorhat, Assam, with a BTech in
               Computer Science. Passionate about building scalable and reliable
-              applications, I specialize in backend development with Node.js,
+              applications, I specialise in backend development with Node.js,
               Express, PostgreSQL, and MongoDB, while also crafting responsive
               frontends with React, Next.js, and Vite. With hands-on experience
               in API design, authentication, testing, and cloud deployment, I
               thrive on solving complex challenges and delivering user-centric
-              solutions. Let’s collaborate and bring your digital ideas to life!
+              solutions.
             </p>
           </div>
         </div>
