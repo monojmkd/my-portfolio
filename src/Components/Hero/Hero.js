@@ -1,6 +1,6 @@
 import React from "react";
 import "./Hero.css";
-import heroImage from "../assests/hero-image.gif";
+// import heroImage from "../assests/hero-image.gif";
 import wave from "../assests/wave.png";
 // import { IoLocationOutline } from "react-icons/io5";
 // import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
@@ -125,18 +125,6 @@ const Hero = () => {
         <span className="scroll-cue-line" />
       </div>
     </section>
-    // {/* <div className="btn-resume">
-    //   <button
-    //     type="button"
-    //     onClick={handleButtonClick}
-    //     className="btn"
-    //   >
-    //     Download Resume
-    //   </button>
-    // </div> */}
-    //   </div>
-    //
-    // </div>
   );
 };
 

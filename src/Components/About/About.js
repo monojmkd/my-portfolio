@@ -1,6 +1,18 @@
 import React from "react";
 import "./About.css";
-import dpImage from "../assests/dp-image2.bmp";
+// import dpImage from "../assests/dp-image2.bmp";
+import myImage from "../assests/monoj.png";
+
+const TAGS = [
+  "Node.js",
+  "React",
+  "PostgreSQL",
+  "MongoDB",
+  "Express",
+  "Next.js",
+  "Docker",
+  "REST APIs",
+];
 
 const About = () => {
   return (
@@ -10,7 +22,7 @@ const About = () => {
           {/* Image */}
           <div className="ab-img rv">
             <div className="ab-img-wrap">
-              <img src={dpImage} alt="Monoj Kumar Das" className="ab-photo" />
+              <img src={myImage} alt="Monoj Kumar Das" className="ab-photo" />
               <div className="ab-dots" />
             </div>
           </div>
@@ -33,6 +45,13 @@ const About = () => {
               thrive on solving complex challenges and delivering user-centric
               solutions.
             </p>
+            <div className="ab-tags rv d3">
+              {TAGS.map((tag) => (
+                <span key={tag} className="ab-tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
