@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FiExternalLink } from "react-icons/fi";
-import pro1 from "../assests/taazakhbr.png";
-import pro2 from "../assests/cryptoworld.png";
-import pro3 from "../assests/happybuys.png";
-import pro4 from "../assests/watchcart.png";
-import pro5 from "../assests/foodsheer.png";
-import pro6 from "../assests/f1hub.png";
+import taazakhbr from "../assests/taazakhbr.png";
+import cryptoworld from "../assests/cryptoworld.png";
+import happybuys from "../assests/happybuys.png";
+import watchcart from "../assests/watchcart.png";
+import foodsheer from "../assests/foodsheer.png";
+import f1hub from "../assests/f1hub.png";
+import govtittracker from "../assests/govtittracker.png";
 import "./Projects.css";
 
 const PROJECTS = [
   {
     name: "FoodSheer",
-    image: pro5,
+    image: foodsheer,
     live: "https://foodsheer.vercel.app/",
     github: "https://github.com/monojmkd/FoodSheer",
     desc: "A food delivery frontend built with ReactJS and Tailwind CSS, leveraging the live Swiggy API to fetch real restaurant data.",
@@ -20,15 +21,23 @@ const PROJECTS = [
   },
   {
     name: "Formula One Hub",
-    image: pro6,
+    image: f1hub,
     live: "https://f1-hub-mkd.vercel.app/",
     github: "https://github.com/monojmkd/F1-Hub",
     desc: "Live F1 race streams, driver standings, upcoming schedules, and highlight videos — all fetched dynamically via the Ergast API.",
     tech: ["React", "Tailwind CSS", "HLS.js"],
   },
   {
+    name: "Govt IT Tracker",
+    image: govtittracker, // import your screenshot at the top
+    live: "https://jobtracker-liart-two.vercel.app/",
+    github: "https://github.com/monojmkd/Govt-IT-Job-Tracker",
+    desc: "A live government IT job tracker with automated cron jobs via GitHub Actions that scrape RSS feeds every 6 hours, store listings in Supabase, and display them in a searchable dashboard with an AI-powered job finder panel.",
+    tech: ["React", "Supabase", "GitHub Actions"],
+  },
+  {
     name: "TaazaKhabr",
-    image: pro1,
+    image: taazakhbr,
     live: "https://taazakhabr-news.vercel.app/",
     github: "https://github.com/monojmkd/taazakhabr-news",
     desc: "A news portal delivering the latest headlines and global stories with category-based filtering and a clean reading experience.",
@@ -36,7 +45,7 @@ const PROJECTS = [
   },
   {
     name: "WatchCart",
-    image: pro4,
+    image: watchcart,
     live: "https://monojmkd.github.io/WatchCart/",
     github: "https://github.com/monojmkd/WatchCart",
     desc: "An e-commerce store for watches and electronics with category filtering and cart management powered by Redux.",
@@ -44,7 +53,7 @@ const PROJECTS = [
   },
   {
     name: "CryptoWorld",
-    image: pro2,
+    image: cryptoworld,
     live: "https://monojmkd.github.io/cryptoworld-react/",
     github: "https://github.com/monojmkd/cryptoworld-react",
     desc: "A real-time cryptocurrency tracker using the CoinGecko API. Browse prices, market caps, and trends for hundreds of coins.",
@@ -52,7 +61,7 @@ const PROJECTS = [
   },
   {
     name: "HappyBuys",
-    image: pro3,
+    image: happybuys,
     live: "https://monojmkd.github.io/happy-buys/",
     github: "https://github.com/monojmkd/happy-buys/tree/master",
     desc: "A simple e-commerce marketplace where users browse products by category and manage their cart with Redux state management.",
