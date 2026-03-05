@@ -93,11 +93,55 @@
   }
 }
 
-/* hover overlay */
+/* ── always-visible hover hint chip ── */
+.hover-hint {
+  position: absolute;
+  bottom: 1.2rem;
+  right: 1.2rem;
+  background: rgba(16, 14, 12, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.75);
+  font-family: "DM Sans", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 2;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: opacity 0.3s ease;
+  pointer-events: none; /* non-interactive, just a label */
+}
+
+.hint-icon {
+  font-size: 1.1rem;
+  animation: hintBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes hintBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* hide hint when overlay is shown so they don't overlap */
+.project-img:hover .hover-hint {
+  opacity: 0;
+}
+
+/* ── click overlay — appears on hover ── */
 .img-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(26, 23, 20, 0.52);
+  background: rgba(16, 14, 12, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,15 +155,29 @@
   opacity: 1;
 }
 
-.img-overlay span {
+.overlay-click-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   font-family: "Syne", sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  padding: 0.7rem 1.8rem;
+  background: none;
+  padding: 1rem 2rem;
   border-radius: 50px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 20px rgba(24, 24, 24, 0.4);
+  transform: translateY(4px);
+  transition: transform 0.3s ease;
+}
+
+.project-img:hover .overlay-click-hint {
+  transform: translateY(0);
+}
+
+.overlay-icon {
+  font-size: 1.5rem;
 }
 
 /* ── Card body ── */

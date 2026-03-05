@@ -32,8 +32,8 @@ const PROJECTS = [
     image: govtittracker, // import your screenshot at the top
     live: "https://jobtracker-liart-two.vercel.app/",
     github: "https://github.com/monojmkd/Govt-IT-Job-Tracker",
-    desc: "A live government IT job tracker with automated cron jobs via GitHub Actions that scrape RSS feeds every 6 hours, store listings in Supabase, and display them in a searchable dashboard with an AI-powered job finder panel.",
-    tech: ["React", "Supabase", "GitHub Actions"],
+    desc: "An automated government IT job aggregator with cron jobs running every 6 hours to scrape RSS feeds, filter roles by IT keywords, and store listings in Supabase via a Vercel serverless API to a real-time React dashboard.",
+    tech: ["React", "Supabase", "Cron Jobs"],
   },
   {
     name: "TaazaKhabr",
@@ -80,7 +80,7 @@ const Projects = () => {
           <div className="section-label">Projects</div>
           <h2 className="section-heading">Things I've built</h2>
           <p className="section-sub">
-            Each project is a unique piece of development 🚀
+            Each project is a unique piece of development
           </p>
         </div>
 
@@ -104,7 +104,12 @@ const Projects = () => {
                       hovered === i ? "bottom center" : "top center",
                   }}
                 />
+                {/* always-visible badges */}
                 <div className="live-badge">Live</div>
+                <div className="hover-hint">
+                  <span className="hint-icon">↕</span> Hover to preview
+                </div>
+                {/* click overlay — appears on hover */}
                 <a
                   href={p.live}
                   target="_blank"
@@ -112,7 +117,10 @@ const Projects = () => {
                   className="img-overlay"
                   aria-label={`View ${p.name} demo`}
                 >
-                  <span>View Demo ↗</span>
+                  <span className="overlay-click-hint">
+                    <span className="overlay-icon">🖱</span>
+                    Click to open live demo ↗
+                  </span>
                 </a>
               </div>
 
