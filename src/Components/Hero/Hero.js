@@ -149,9 +149,9 @@ const Hero = () => {
 
           <p className="hero-bio">
             I build scalable web applications with a strong focus on backend
-            engineering — clean APIs, solid authentication, cloud deployment,
-            and high-performance architecture using Node.js, React, PostgreSQL
-            and MongoDB.
+            engineering, clean APIs, solid authentication, cloud deployment, and
+            high-performance architecture using Node.js, React, PostgreSQL and
+            MongoDB.
           </p>
 
           <div className="hero-meta">

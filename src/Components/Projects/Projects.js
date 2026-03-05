@@ -24,7 +24,7 @@ const PROJECTS = [
     image: f1hub,
     live: "https://f1-hub-mkd.vercel.app/",
     github: "https://github.com/monojmkd/F1-Hub",
-    desc: "Live F1 race streams, driver standings, upcoming schedules, and highlight videos — all fetched dynamically via the Ergast API.",
+    desc: "Live F1 race streams, driver standings, upcoming schedules, and highlight videos all fetched dynamically via the Ergast API.",
     tech: ["React", "Tailwind CSS", "HLS.js"],
   },
   {
@@ -40,7 +40,7 @@ const PROJECTS = [
     image: taazakhbr,
     live: "https://taazakhabr-news.vercel.app/",
     github: "https://github.com/monojmkd/taazakhabr-news",
-    desc: "A news portal delivering the latest headlines and global stories with category-based filtering and a clean reading experience.",
+    desc: "A news portal delivering the latest headlines and global stories with category based filtering and a clean reading experience.",
     tech: ["React", "Node.js", "Bootstrap"],
   },
   {
