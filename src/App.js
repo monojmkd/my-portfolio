@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Tech from "./Components/Tech/Tech";
 import Contact from "./Components/Contacts/Contact";
 import { useEffect, useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [showBtt, setShowBtt] = useState(false);
@@ -63,6 +64,7 @@ function App() {
           ↑
         </button>
       </HashRouter>
+      <Analytics />
     </>
   );
 }
