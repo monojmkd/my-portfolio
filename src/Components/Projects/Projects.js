@@ -8,6 +8,7 @@ import watchcart from "../assests/watchcart.png";
 import foodsheer from "../assests/foodsheer.png";
 import f1hub from "../assests/f1hub.png";
 import govtittracker from "../assests/govtittracker.png";
+import ticketnow from "../assests/ticketnow.png";
 import "./Projects.css";
 
 const PROJECTS = [
@@ -28,8 +29,16 @@ const PROJECTS = [
     tech: ["React", "Tailwind CSS", "HLS.js"],
   },
   {
+    name: "TicketNow",
+    image: ticketnow,
+    live: "https://ticketnow-eta.vercel.app",
+    github: "https://github.com/monojmkd/TicketNow",
+    desc: "Engineered a full-stack event booking platform with role-based access, enabling organizers to manage events and customers to discover and book tickets seamlessly.",
+    tech: ["React", "JWT", "Node.Js"],
+  },
+  {
     name: "Govt IT Tracker",
-    image: govtittracker, // import your screenshot at the top
+    image: govtittracker,
     live: "https://jobtracker-liart-two.vercel.app/",
     github: "https://github.com/monojmkd/Govt-IT-Job-Tracker",
     desc: "An automated government IT job aggregator with cron jobs running every 6 hours to scrape RSS feeds, filter roles by IT keywords, and store listings in Supabase via a Vercel serverless API to a real-time React dashboard.",
