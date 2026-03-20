@@ -33,7 +33,7 @@ const PROJECTS = [
     image: ticketnow,
     live: "https://ticketnow-eta.vercel.app",
     github: "https://github.com/monojmkd/TicketNow",
-    desc: "Engineered a full-stack event booking platform with role-based access, enabling organizers to manage events and customers to discover and book tickets seamlessly.",
+    desc: "Engineered a fullstack event booking platform with role based access, enabling organizers to manage events and customers to discover and book tickets seamlessly.",
     tech: ["React", "JWT", "Node.Js"],
   },
   {
