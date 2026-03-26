@@ -112,7 +112,7 @@ const Terminal = () => {
 const Hero = () => {
   const handleResumeClick = () => {
     window.open(
-      "https://drive.google.com/file/d/15ww6LvJSX19XoIFNsbDHYMNkSXWrSsD_/view?usp=sharing",
+      "https://drive.google.com/file/d/1moYtR21s9dCp_UBjV2huCVhspASP1bMs/view?usp=sharing",
       "_blank",
     );
   };
